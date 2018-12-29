@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+  <head>
+    <meta charset="utf-8">
+    <title></title>
+  </head>
+  <body>
+
+  </body>
+  <script type="text/javascript">
+
+    let oldArr = [
+      {id:1},
+      {id:2},
+      {id:1},
+      {id:3},
+      {id:4},
+      {id:5},
+      {id:2}
+    ];
+    function arr1(){
+      let allArr = [];
+      for(let i=0;i<oldArr.length;i++){
+      let flag = true;
+      　　for(var j=0;j<allArr.length;j++){
+      　　　　if(oldArr[i].id == allArr[j].id){
+      　　　　　　flag = false;
+      　　　　};
+      　　};
+      　　if(flag){
+      　　　　allArr.push(oldArr[i]);
+      　　};
+      };
+      console.log(allArr);
+    }
+
+
+    //有问题
+    function arr2(){
+         let newArr=[];
+
+        for(let i=0;i<oldArr.length;i++){
+
+           if(newArr.indexOf(oldArr[i])==-1)
+              newArr.push(oldArr[i])
+        }
+        console.log(newArr);
+    }
+    arr2()
+
+
+
+
+
+  //array.reduce(function(total, currentValue, currentIndex, arr), initialValue)
+  // function(total,currentValue, index,arr)	必需。用于执行每个数组元素的函数。
+  // 函数参数:
+  // 参数	描述
+  // total	必需。初始值, 或者计算结束后的返回值。
+  // currentValue	必需。当前元素
+  // currentIndex	可选。当前元素的索引
+  // arr	可选。当前元素所属的数组对象。
+  // initialValue	可选。传递给函数的初始值
+
+  function arr3(){
+    var choice = {};
+    oldArr = oldArr.reduce(function(arr, current) {
+        choice[current.id] ? '' : choice[current.id] = true && arr.push(current);
+        return arr
+    },[])
+    console.log(oldArr);
+  }
+
+  function arr4(){
+    let json={};
+    let newArr=[];
+    for(let i=0;i<oldArr.length;i++){
+      if(!json[oldArr[i].id]){
+        json[oldArr[i].id]=true;
+        newArr.push(oldArr[i])
+      }
+    }
+    console.log(newArr);
+  }
+
+
+  function arr5(){
+    let temp=[];
+    let newArr=[oldArr[0]]
+    for(let i=0;i<oldArr.length-1;i++){
+      for(let j=i+1;j<oldArr.length;j++)
+      if(oldArr[i].id>oldArr[j].id){
+        temp =  oldArr[i];
+        oldArr[i] = oldArr[j];
+        oldArr[j] = temp;
+      }
+    }
+    for(let i=0;i<oldArr.length;i++){
+      if(oldArr[i].id!==newArr[newArr.length-1].id){
+        newArr.push(oldArr[i])
+      }
+    }
+    console.log(newArr);
+
+  }
+
+  function arr6(){
+    let json={};
+    let newArr=[];
+    for(let i=oldArr.length-1;i>=0;--i){
+      if(oldArr[i].id in json){
+        oldArr.splice(oldArr[i],1);
+      }else{
+        json[oldArr[i].id]=true;
+      }
+    }
+    console.log(oldArr);
+  }
+
+  </script>
+</html>
